@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;//Librería que nos permitirá hacer una lista de prodcutos //**
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,54 +10,39 @@ namespace BL.Rentas
 {
     public class ProductosBL
     {
+        Contexto _contexto;
+
         public BindingList<Producto> ListaProductos { get; set; }//**
 
         public ProductosBL()
         {
-            ListaProductos = new BindingList<Producto>();
-
-            //DATOS DE PRUEBA, MIENTRAS NO ESTA LA BASE DE DATOS
-
-            var Producto1 = new Producto();
-            Producto1.Id = 1;
-            Producto1.Descripcion = "iPhoneX";
-            Producto1.Precio = 25000;
-            Producto1.Existencia = 15;
-            Producto1.Activo = true;
-
-            ListaProductos.Add(Producto1);
-
-            var Producto2 = new Producto();
-            Producto2.Id = 2;
-            Producto2.Descripcion = "SAMSUNG S5";
-            Producto2.Precio = 14200;
-            Producto2.Existencia = 7;
-            Producto2.Activo = true;
-
-            ListaProductos.Add(Producto2);
-
-            var Producto3 = new Producto();
-            Producto3.Id = 3;
-            Producto3.Descripcion = "PC HP";
-            Producto3.Precio = 32000;
-            Producto3.Existencia = 3;
-            Producto3.Activo = true;
-
-            ListaProductos.Add(Producto3);
+            _contexto = new Contexto(); // Instanciamos la variable _contexto.
+            ListaProductos = new BindingList<Producto>();          
         }
 
         public BindingList<Producto> ObtenerProductos()
         {
+            _contexto.Productos.Load();
+            ListaProductos = _contexto.Productos.Local.ToBindingList();
+
             return ListaProductos;
         }
 
-        public bool GuardarProducto(Producto Producto)
+        public Resultado GuardarProducto(Producto Producto)
         {
+            var resultado = Validar(Producto);
+
+            if (resultado.Exitoso == false)
+            {
+                return resultado;
+            }
+
             if(Producto.Id == 0)
             {
                 Producto.Id = ListaProductos.Max(item => item.Id) + 1;//Funcion Max que busca en toda la lista
             }
-            return true;
+            resultado.Exitoso = true;
+            return resultado;
         }
 
         public void AgregarProducto()
@@ -78,6 +64,33 @@ namespace BL.Rentas
 
             return false;
         }
+
+        private Resultado Validar(Producto producto)
+        {
+            var resultado = new Resultado();
+            resultado.Exitoso = true;
+
+            if (string.IsNullOrEmpty(producto.Descripcion) == true)
+            {
+                resultado.Mensaje = "Ingrese una descripción";
+                resultado.Exitoso = false;
+            }
+
+            if (producto.Existencia < 0)
+            {
+                resultado.Mensaje = "La existencia debe ser mayor que cero";
+                resultado.Exitoso = false;
+            }
+
+            if (producto.Precio < 0)
+            {
+                resultado.Mensaje = "La precio debe ser mayor que cero";
+                resultado.Exitoso = false;
+            }
+
+            return resultado;
+        }
+
     }
 
     public class Producto //CLASE
@@ -88,4 +101,11 @@ namespace BL.Rentas
         public int Existencia { get; set; }
         public bool Activo { get; set; }
     }
+
+    public class Resultado
+    {
+        public bool Exitoso { get; set; }
+        public string Mensaje { get; set; }
+    }
+
 }

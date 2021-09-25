@@ -66,6 +66,7 @@
             this.textBox1user.Name = "textBox1user";
             this.textBox1user.Size = new System.Drawing.Size(213, 22);
             this.textBox1user.TabIndex = 1;
+            this.textBox1user.Text = "admin";
             // 
             // textBox2pass
             // 
@@ -75,6 +76,7 @@
             this.textBox2pass.PasswordChar = '*';
             this.textBox2pass.Size = new System.Drawing.Size(213, 22);
             this.textBox2pass.TabIndex = 1;
+            this.textBox2pass.Text = "123";
             // 
             // button1aceptar
             // 
