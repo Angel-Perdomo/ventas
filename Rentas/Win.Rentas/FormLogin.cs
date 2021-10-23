@@ -1,19 +1,12 @@
-﻿using BL.Rentas;
+﻿using BL.Rentas; // Librería Rentas
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Win.Rentas
 {
     public partial class FormLogin : Form
     {
-        SeguridadBL _Seguridad;
+        SeguridadBL _Seguridad; // Variable gobal
 
         public FormLogin()
         {
@@ -46,6 +39,7 @@ namespace Win.Rentas
             {
                 MessageBox.Show("Usuario o contraseña incorrecta!");
             }
-        }
+
+        } // Fin button1aceptar_Click
     }
 }

@@ -24,5 +24,6 @@ namespace BL.Rentas
             }
             return false;
         }
-    }
+
+    } //Fin class SeguridadBL.
 }

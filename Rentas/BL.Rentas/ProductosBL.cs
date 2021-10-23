@@ -18,7 +18,7 @@ namespace BL.Rentas
         {
             _contexto = new Contexto(); // Instanciamos la variable _contexto.
             ListaProductos = new BindingList<Producto>();          
-        }
+        }//
 
         public BindingList<Producto> ObtenerProductos()
         {
@@ -26,7 +26,7 @@ namespace BL.Rentas
             ListaProductos = _contexto.Productos.Local.ToBindingList();
 
             return ListaProductos;
-        }
+        }//
 
         public Resultado GuardarProducto(Producto Producto)
         {
@@ -89,9 +89,9 @@ namespace BL.Rentas
             }
 
             return resultado;
-        }
+        }//Resultado Validar.
 
-    }
+    } // Fin class ProductosBL.
 
     public class Producto //CLASE
     {
@@ -102,10 +102,10 @@ namespace BL.Rentas
         public bool Activo { get; set; }
     }
 
-    public class Resultado
-    {
-        public bool Exitoso { get; set; }
-        public string Mensaje { get; set; }
-    }
+        public class Resultado
+        {
+            public bool Exitoso { get; set; }
+            public string Mensaje { get; set; }
+        }
 
 }

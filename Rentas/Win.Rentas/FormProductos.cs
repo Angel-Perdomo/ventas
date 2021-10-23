@@ -39,7 +39,7 @@ namespace Win.Rentas
             {
                 MessageBox.Show(Resultado.Mensaje);
             }
-        }
+        }//FIN listaProductosBindingNavigatorSaveItem_Click
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
@@ -77,7 +77,7 @@ namespace Win.Rentas
             
 
             
-        }
+        }//
 
         private void Eliminar(int id)
         {

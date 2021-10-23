@@ -15,5 +15,5 @@ namespace BL.Rentas
         }
 
         public DbSet<Producto> Productos { get; set; }
-    }
+    }//
 }
